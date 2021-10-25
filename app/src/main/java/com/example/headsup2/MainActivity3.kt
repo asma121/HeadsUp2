@@ -28,7 +28,7 @@ class MainActivity3 : AppCompatActivity() {
         addButton.setOnClickListener {
             newCele=etname2.text.toString()
             T1=ettaboo12.text.toString()
-            T3=ettaboo22.text.toString()
+            T2=ettaboo22.text.toString()
             T3=ettaboo32.text.toString()
             val dbHelper=DbHelper(applicationContext)
             var status=dbHelper.addCelebrity(newCele,T1,T2,T3)

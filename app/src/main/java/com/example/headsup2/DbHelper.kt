@@ -2,6 +2,7 @@ package com.example.headsup2
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
@@ -25,5 +26,17 @@ class DbHelper(context: Context):SQLiteOpenHelper(context,"celebritiesDetails.db
         cv.put("Taboo3",t3)
         val status=SQLiteDatabase.insert("celebrities",null,cv)
         return status
+    }
+
+    fun getCelebrity(): ArrayList<ArrayList<String>> {
+        var celeInf=ArrayList<ArrayList<String>>()
+        val c:Cursor=SQLiteDatabase.query("celebrities",null,null,null,null,null,null)
+        while (c.moveToNext()){
+            celeInf.add(arrayListOf(c.getString(c.getColumnIndex("Name")),
+                c.getString(c.getColumnIndex("Taboo1")),
+                c.getString(c.getColumnIndex("Taboo2")),
+                c.getString(c.getColumnIndex("Taboo3"))))
+        }
+        return celeInf
     }
 }

@@ -28,7 +28,9 @@ class MainActivity2 : AppCompatActivity() {
 
 
         if (resources.configuration.orientation==Configuration.ORIENTATION_LANDSCAPE){
-            getCelebrityDetails(onResult = {
+                getCelebrityFromDB()
+
+            /*getCelebrityDetails(onResult = {
                 celedata = it
                val datumList = celedata
                 for (datum in datumList!!) {
@@ -45,7 +47,7 @@ class MainActivity2 : AppCompatActivity() {
                         timer(time)
                     }
                 }
-            })
+            })*/
         }
         
     }
@@ -73,7 +75,7 @@ class MainActivity2 : AppCompatActivity() {
         return cele
     }
 
-    private fun timer(t:Long){
+    private  fun timer(t:Long){
         object : CountDownTimer(t, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 tvTime.text = "Time: ${millisUntilFinished / 1000}"
@@ -95,5 +97,17 @@ class MainActivity2 : AppCompatActivity() {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         time= savedInstanceState.getLong("time", 0)
+        timer(time)
+    }
+
+     fun  getCelebrityFromDB(){
+        val dbHelper=DbHelper(applicationContext)
+        val retrieveResult=dbHelper.getCelebrity()
+        retrieveResult.shuffle()
+        val oneCele=retrieveResult[0]
+        tvname.text=oneCele[0]
+        tvta1.text=oneCele[1]
+        tvta2.text=oneCele[2]
+        tvta3.text=oneCele[3]
     }
 }
